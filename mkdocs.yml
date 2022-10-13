@@ -3,8 +3,7 @@ repo_url: https://github.com/project-stacker/stacker.git
 repo_name: project-stacker/stacker
 theme:
   name: material
-  custom_dir: overrides
-  palette: 
+  palette:
     - scheme: slate
       toggle:
         name: Light Mode

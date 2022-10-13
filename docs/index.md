@@ -45,3 +45,4 @@ See the [hacking](hacking.md) guide for tips on hacking/debugging stacker.
 
 (Note that despite the similarity in name of the 2018 talks, the content is
 mostly disjoint; I need to be more creative with naming.)
+
