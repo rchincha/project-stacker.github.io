@@ -1,0 +1,92 @@
+site_name: Stacker Build
+repo_url: https://github.com/project-stacker/stacker.git
+repo_name: project-stacker/stacker
+theme:
+  name: material
+  custom_dir: overrides
+  palette: 
+    - scheme: slate
+      toggle:
+        name: Light Mode
+        icon: material/brightness-7
+      primary: indigo
+      accent: lime
+      media: "(prefers-color-scheme: dark)"
+    - scheme: default
+      toggle:
+        name: Dark Mode
+        icon: material/brightness-4
+      primary: indigo
+      accent: teal
+      media: "(prefers-color-scheme: light)"
+  favicon: assets/images/favicon.png
+  logo: assets/logo.png
+  features:
+    - content.code.annotate
+    - content.tooltips
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Roboto
+    code: Roboto Mono
+extra:
+  homepage: https://stackerbuild.io
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/project-stacker/stacker.git
+plugins:
+  - search
+  - minify:
+      minify_html: true
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Runtime Environment: runtime.md
+    - Installation: installation.md
+  - Build:
+    - Tutorial: tutorial.md
+    - Tips and Tricks: tricks.md
+    - Hacking: hacking.md
+    - YAML Reference: stacker_yaml.md
