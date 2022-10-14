@@ -1,6 +1,7 @@
 site_name: Stacker Build
 repo_url: https://github.com/project-stacker/stacker.git
 repo_name: project-stacker/stacker
+edit_uri: ""
 theme:
   name: material
   palette:
