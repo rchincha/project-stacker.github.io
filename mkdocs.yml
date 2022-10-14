@@ -43,6 +43,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/project-stacker/stacker.git
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/stackerbuild
 plugins:
   - search
   - minify:
