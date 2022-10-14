@@ -1,11 +1,11 @@
-# Stacker - OCI Container Image Builder
+# Stacker - OCI-native Container Image Builder
 
 Stacker is a tool for building OCI images natively via a declarative yaml format.
 
 ## Features
 
 * Single binary
-* Rootless builds
+* Unprivileged builds
 * Hermetically sealed builds using LXC containers
 * [GitHub action](https://github.com/marketplace/actions/stacker-build-and-push-action)
 
