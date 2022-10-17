@@ -9,18 +9,18 @@ theme:
       toggle:
         name: Light Mode
         icon: material/brightness-7
-      primary: indigo
+      primary: black
       accent: lime
       media: "(prefers-color-scheme: dark)"
     - scheme: default
       toggle:
         name: Dark Mode
         icon: material/brightness-4
-      primary: indigo
+      primary: black
       accent: teal
       media: "(prefers-color-scheme: light)"
   favicon: assets/images/favicon.png
-  logo: assets/logo.png
+  logo: assets/images/logo.png
   features:
     - content.code.annotate
     - content.tooltips
