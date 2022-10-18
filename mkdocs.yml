@@ -2,6 +2,7 @@ site_name: Stacker Build
 repo_url: https://github.com/project-stacker/stacker
 repo_name: project-stacker/stacker
 edit_uri: ""
+copyright: Copyright &copy; 2017-2022 Cisco Systems Inc.
 theme:
   name: material
   palette:
