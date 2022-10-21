@@ -4,7 +4,7 @@ site_description: Stacker Build Docuementation
 repo_url: https://github.com/project-stacker/stacker
 repo_name: project-stacker/stacker
 edit_uri: ""
-copyright: Copyright &copy; 2017-2022 Cisco Systems Inc.
+copyright: Copyright &copy; 2017 - 2022 Cisco Systems Inc., All Rights Reserved.
 theme:
   name: material
   custom_dir: material
@@ -30,8 +30,6 @@ theme:
     - content.tooltips
     - navigation.instant
     - navigation.tracking
-    - navigation.sections
-    - navigation.expand
     - navigation.top
     - navigation.indexes
     - search.suggest
@@ -88,11 +86,35 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Runtime Environment: runtime.md
-    - Installation: installation.md
-  - Build:
-    - Tutorial: tutorial.md
-    - Tips and Tricks: tricks.md
-    - Hacking: hacking.md
-    - YAML Reference: stacker_yaml.md
+  - Get Started:
+    - Get Stacker: get_started/get_stacker.md
+    - Build Image: get_started/build_image.md
+  - Concepts:
+    - OCI Image Layout: concepts/oci_image_layout.md
+    - Stacker Architecture: concepts/stacker_architecture.md
+    - Multi-Layer Build: concepts/multi_layer_build.md
+    - Incremental Build: concepts/incremental_build.md
+    - SquashFS Layer: concepts/squashfs_layer.md
+  - User Guide:
+    - Runtime Environment: user_guide/runtime_environment.md
+    - Image Build: user_guide/image_build.md
+    - Templates: user_guide/templates.md
+    - Annotation Support: user_guide/annotation_support.md
+    - Scratch Image: user_guide/scratch_image.md
+    - Dependency Builds: user_guide/dependency_builds.md
+    - Publish Images: user_guide/publish_images.md
+    - Build Cache: user_guide/build_cache.md
+    - Inspect Images: user_guide/inspect_images.md
+    - Image Chroot: user_guide/image_chroot.md
+    - Grab Image Content: user_guide/grab_image_content.md
+    - SquashFS Images: user_guide/squashfs_images.md
+    - Debugging: user_guide/debugging.md
+  - Reference:
+    - Stacker CLI: reference/stacker_cli.md
+    - Stacker File: reference/stacker_file.md
+  - Developer Guide:
+    - Building Stacker: developer_guide/building_stacker.md
+    - Code Structure: developer_guide/code_structure.md
+    - LXC Usage: developer_guide/lxc_usage.md
+    - OverlayFS Usage: developer_guide/overlayfs_usage.md
+  - License: license.md

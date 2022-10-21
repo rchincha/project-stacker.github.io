@@ -1,4 +1,4 @@
-## Hacking stacker
+# Debugging Stacker
 
 The first step to trying to find a bug in stacker is to run it with --debug.
 This will give you a stack trace from where (at least in stacker's code) the

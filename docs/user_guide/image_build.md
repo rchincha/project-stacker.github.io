@@ -1,9 +1,8 @@
-## Stacker Tutorial
+# Image Build
 
 Stacker is a tool that allows for building OCI images in a reproducible manner,
 completely unprivileged. For this tutorial, we assume you have followed the
-[installation](installation.md) guide and your environment satisfies all the
-[runtime dependecies](runtime.md).
+[Get Stacker](../get_started/get_stacker.md) guide.
 
 ### First `stacker.yaml`
 
@@ -16,8 +15,9 @@ smallest stacker files is just:
             type: docker
             url: docker://centos:latest
 
-Note the key `first` represents the name of the layer, and it can have any value except
-`config`, which has a special usage, see the [stacker yaml](stacker_yaml.md) documentation
+Note the key `first` represents the name of the layer, and it can have any value
+except `config`, which has a special usage, see the 
+[stacker file](../reference/stacker_file.md) documentation.
 
 With this stacker file as `first.yaml`, we can do a basic stacker build:
 

@@ -1,6 +1,4 @@
-## Tips and Tricks
-
-#### Building a layer from scratch
+# Building container image from scratch
 
 There are a couple of cases where it may be useful to build a layer from
 scratch. For example to derive a new base install of an OS or to build a
@@ -48,7 +46,8 @@ to create a layer based on this tarball, without actually running anything
 inside of the layer (which means e.g. absence of a shell or libc or whatever is
 fine).
 
-Another way to accomplish something similar is to use a [distroless](https://github.com/GoogleContainerTools/distroless) layer:
+Another way to accomplish something similar is to use a 
+[distroless](https://github.com/project-stacker/c3) layer:
 
     build:
         from:
@@ -62,8 +61,11 @@ Another way to accomplish something similar is to use a [distroless](https://git
     contents:
         from:
             type: docker
-            url: docker://gcr.io/distroless/base
+            url: docker://zothub.io/project-stacker/c3/base
         overlay_dirs:
             - source: /tmp/dir_to_overlay
               dest: /dir_to_overlay
-You can use the first layer as a build env, and copy your binary to a bind-mounted folder. Use overlay_dirs with that same folder to have the binary in the distroless layer.
+
+You can use the first layer as a build env, and copy your binary to a 
+bind-mounted folder. Use overlay_dirs with that same folder to have the binary 
+in the distroless layer.
