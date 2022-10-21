@@ -1,22 +1,25 @@
 site_name: Stacker Build
+site_url: https://stackerbuild.io
+site_description: Stacker Build Docuementation
 repo_url: https://github.com/project-stacker/stacker
 repo_name: project-stacker/stacker
 edit_uri: ""
 copyright: Copyright &copy; 2017-2022 Cisco Systems Inc.
 theme:
   name: material
+  custom_dir: material
   palette:
     - scheme: slate
       toggle:
         name: Light Mode
-        icon: material/brightness-7
+        icon: material/toggle-switch-off-outline
       primary: black
       accent: lime
       media: "(prefers-color-scheme: dark)"
     - scheme: default
       toggle:
         name: Dark Mode
-        icon: material/brightness-4
+        icon: material/toggle-switch
       primary: black
       accent: teal
       media: "(prefers-color-scheme: light)"
