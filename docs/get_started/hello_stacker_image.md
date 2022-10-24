@@ -6,7 +6,7 @@ simple "Hello Stacker!" script into an OCI container image.
 hello-stacker:
   from:
     type: docker
-    url: docker://ubuntu:latest
+    url: docker://zothub.io/tools/busybox:stable
   run: |
     mkdir -p /hello-stacker-app
     echo 'echo "Hello Stacker!"' > /hello-stacker-app/hello.sh
@@ -19,8 +19,8 @@ hello-stacker:
 __hello-stacker__.
 
 The `from` section defines that `hello-stacker` image builds on top of an 
-existing image called `ubuntu:latest`, and that the base image is of type 
-`docker` downloaded from URL `docker://ubuntu:latest`.
+existing image called `zothub.io/tools/busybox:stable`, and that the base image is of type 
+`docker` downloaded from URL `docker://zothub.io/tools/busybox:stable`.
 
 The `run` section defines a build script. This script is executed on top of the
 ubuntu image's root file system, creates a file called 
@@ -35,7 +35,7 @@ stacker file name `hello_stacker.yaml`.
 ```bash title="Hello Stacker Build"
 $ stacker build -f hello_stacker.yaml
 preparing image hello-stacker...
-loading docker://ubuntu:latest
+loading docker://zothub.io/tools/busybox:stable
 Copying blob cf92e523b49e done
 Copying config cb52c703ef done
 Writing manifest to image destination
@@ -45,7 +45,7 @@ Storing signatures
 + chmod +x /hello-stacker-app/hello.sh
 filesystem hello-stacker built successfully
 ```
-stacker build used `hello-stacker.yaml` as input, downloaded the `ubuntu:latest`
+stacker build used `hello-stacker.yaml` as input, downloaded the `zothub.io/tools/busybox:stable`
 image from docker hub and generated an OCI image with tag `hello-stacker`. We 
 can verify this using `stacker inspect`:
 
@@ -58,7 +58,7 @@ Annotations:
   io.stackeroci.stacker.stacker_yaml: hello-stacker:
   from:
     type: docker
-    url: docker://ubuntu:latest
+    url: docker://zothub.io/tools/busybox:stable
   run: |
     mkdir -p /hello-stacker-app
     echo 'echo "Hello Stacker!"' > /hello-stacker-app/hello.sh
@@ -117,7 +117,7 @@ to the stacker file, less things happen:
 ```bash title="stacker caching"
 $ stacker build -f hello_stacker.yaml
 preparing image hello-stacker...
-loading docker://ubuntu:latest
+loading docker://zothub.io/tools/busybox:stable
 Copying blob cf92e523b49e skipped: already exists
 Copying config cb52c703ef done
 Writing manifest to image destination
