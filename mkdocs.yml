@@ -88,7 +88,7 @@ nav:
   - Home: index.md
   - Get Started:
     - Get Stacker: get_started/get_stacker.md
-    - Build Image: get_started/build_image.md
+    - Hello Stacker Image: get_started/hello_stacker_image.md
   - Concepts:
     - OCI Image Layout: concepts/oci_image_layout.md
     - Stacker Architecture: concepts/stacker_architecture.md
