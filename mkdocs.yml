@@ -48,6 +48,8 @@ extra:
       link: https://github.com/project-stacker/stacker.git
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/stackerbuild
+    - icon: fontawesome/brands/slack
+      link: https://cloud-native.slack.com/archives/C048S8TMBGQ
 plugins:
   - search
   - minify:
