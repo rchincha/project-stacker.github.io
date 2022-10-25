@@ -94,22 +94,19 @@ nav:
   - Concepts:
     - OCI Image Layout: concepts/oci_image_layout.md
     - Stacker Architecture: concepts/stacker_architecture.md
-    - Multi-Layer Build: concepts/multi_layer_build.md
-    - Incremental Build: concepts/incremental_build.md
-    - SquashFS Layer: concepts/squashfs_layer.md
   - User Guide:
-    - Runtime Environment: user_guide/runtime_environment.md
-    - Image Build: user_guide/image_build.md
-    - Templates: user_guide/templates.md
-    - Annotation Support: user_guide/annotation_support.md
+    - Build Environment: user_guide/build_environment.md
+    - Container Build: user_guide/container_build.md
+    - Build Container Image: user_guide/build_container_image.md
     - Scratch Image: user_guide/scratch_image.md
+    - Template Substitution: user_guide/template_substitution.md
+    - Annotation Support: user_guide/annotation_support.md
     - Dependency Builds: user_guide/dependency_builds.md
     - Publish Images: user_guide/publish_images.md
     - Build Cache: user_guide/build_cache.md
     - Inspect Images: user_guide/inspect_images.md
     - Image Chroot: user_guide/image_chroot.md
     - Grab Image Content: user_guide/grab_image_content.md
-    - SquashFS Images: user_guide/squashfs_images.md
     - Debugging: user_guide/debugging.md
   - Reference:
     - Stacker CLI: reference/stacker_cli.md
