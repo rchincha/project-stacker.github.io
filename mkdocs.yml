@@ -61,6 +61,7 @@ markdown_extensions:
   - def_list
   - footnotes
   - md_in_html
+  - tables
   - toc:
       permalink: true
   - pymdownx.superfences
@@ -96,7 +97,7 @@ nav:
     - Stacker Architecture: concepts/stacker_architecture.md
   - User Guide:
     - Build Environment: user_guide/build_environment.md
-    - Container Build: user_guide/container_build.md
+    - Build Code: user_guide/build_code.md
     - Build Container Image: user_guide/build_container_image.md
     - Scratch Image: user_guide/scratch_image.md
     - Template Substitution: user_guide/template_substitution.md
