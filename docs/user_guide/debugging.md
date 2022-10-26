@@ -1,12 +1,12 @@
-# Debugging Stacker
-
 The first step to trying to find a bug in stacker is to run it with --debug.
 This will give you a stack trace from where (at least in stacker's code) the
 error originated via [github.com/pkg/errors](https://github.com/pkg/errors).
 
 Sometimes it is useful to write a small reproducer in `test/`, and run it with:
 
-    make check TEST=myreproducer.bats
+```bash
+make check TEST=myreproducer.bats
+```
 
 ## Overlayfs / layer issues
 
@@ -15,9 +15,11 @@ to LXC. Note that the build overlay filesystem never exists in the host mount
 namespace, but is created by liblxc in the child namespace. Sometimes it can be
 useful to take these overlay args and split up the lowerdirs:
 
-    /data/ssd/builds/stacker/stacker_layers/.roots/sha256_f8e46c301da6347e78057d8fe48a6bbd8fc0cab213d47825f5c0c0646f542b6b/overlay
-    /data/ssd/builds/stacker/stacker_layers/.roots/sha256_7eb8e296d351fe6d0c87fea979b305e2b1f19548d99f9aee4b8030b596f02efd/overlay
-    /data/ssd/builds/stacker/stacker_layers/.roots/sha256_ca379e914166030218007477a7b9cfd0ca3dd554c58e2401c58c634fac9182f8/overlay
+```
+./stacker/stacker_layers/.roots/sha256_f8e46c301da6347e78057d8fe48a6bbd8fc0cab213d47825f5c0c0646f542b6b/overlay
+./stacker/stacker_layers/.roots/sha256_7eb8e296d351fe6d0c87fea979b305e2b1f19548d99f9aee4b8030b596f02efd/overlay
+./stacker/stacker_layers/.roots/sha256_ca379e914166030218007477a7b9cfd0ca3dd554c58e2401c58c634fac9182f8/overlay
+```
 
 and look through each one (top to bottom, as the overlay stack would present)
 in order to see what's going on.
@@ -29,12 +31,13 @@ stacker will also try and render any liblxc ERRORs to stdout, but sometimes it
 can be useful to see a full liblxc trace log. This is available in
 `$(--stacker-dir)/lxc.log` for the last run.
 
-
 If you get even more in the weeds, you may need to build your own liblxc with
 debug statements. Thankfully, everything is statically linked so this is fairly
 easy to test locally, as long as your host liblxc can build stacker:
 
-    make LXC_CLONE_URL=https://github.com/tych0/lxc LXC_BRANCH=my-debug-branch
+```bash
+make LXC_CLONE_URL=https://github.com/tych0/lxc LXC_BRANCH=my-debug-branch
+```
 
 Stacker links against this through a convoluted mechanism: it builds a static C
 program in `/cmd/lxc-wrapper/` that takes a few relevant arguments about what
@@ -70,19 +73,21 @@ use when e.g. `foo` is a dependency of some other layer `bar`.
 
 Note that there is currently one wart. In a stacker file like:
 
-    foo:
-        from:
-            type: docker
-            url: docker://ubuntu:latest
-        build_only: true
-        run: |
-            dd if=/dev/random of=/bigfile bs=1M count=1000
-    bar:
-        from:
-            type: bult
-            tag: foo
-        run: |
-            rm /bigfile
+```yaml
+foo:
+  from:
+    type: docker
+    url: docker://ubuntu:latest
+  build_only: true
+  run: |
+    dd if=/dev/random of=/bigfile bs=1M count=1000
+bar:
+  from:
+    type: built
+    tag: foo
+  run: |
+    rm /bigfile
+```
 
 The final image for `bar` will actually contain a layer with `/bigfile` in it,
 because the `foo` layer's mutations are generated independently of `bar`'s.
