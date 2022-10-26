@@ -1,171 +1,104 @@
-# Image Build
+Usually, developers use a two-stage build process to build a container image. 
+In the first stage, make the binary for the container image, and in the second
+stage, build the runtime container image, including that binary. To accomplish
+this, stacker "build only" container builds the required binary and does not
+generate the corresponding OCI layer. Then copy this binary into the RFS of the 
+runtime image such that the final container has __only__ the required binary.
 
-Stacker is a tool that allows for building OCI images in a reproducible manner,
-completely unprivileged. For this tutorial, we assume you have followed the
-[Get Stacker](../get_started/get_stacker.md) guide.
+```bash title="Two-stage container image build"
+cat > "hello_stacker.go" << EOF
+package main
 
-### First `stacker.yaml`
+import "fmt"
 
-The basic input to stacker is the `stacker.yaml` file, which describes what the
-base for your OCI image should be, and what to do to construct it. One of the
-smallest stacker files is just:
+func main() {
+    fmt.Println("Hello Stacker!")
+}
+EOF
 
-    first:
-        from:
-            type: docker
-            url: docker://centos:latest
+cat > "hello.stacker.yaml" << EOF
+build-hello-stacker:
+  from:
+    type: docker
+    url: docker://zothub.io/c3/ubuntu/go-devel-amd64:1.19.2
+  import:
+    - ./hello_stacker.go
+  build_only: true
+  run: |
+    # Source Go toolchain env
+    . /etc/profile
 
-Note the key `first` represents the name of the layer, and it can have any value
-except `config`, which has a special usage, see the 
-[stacker file](../reference/stacker_file.md) documentation.
+    # Setup Go ENV
+    mkdir -p /go
+    export GOPATH=/go
+    mkdir -p /go/src
+    cd /go/src
 
-With this stacker file as `first.yaml`, we can do a basic stacker build:
+    # Copy source code to go path
+    cp /stacker/hello_stacker.go .
 
-    $ stacker build -f first.yaml
-    building image first...
-    importing files...
-    Getting image source signatures
-    Copying blob sha256:5e35d10a3ebadf9d6ab606ce72e1e77f8646b2e2ff8dd3a60d4401c3e3a76f31
-     69.60 MB / 69.60 MB [=====================================================] 16s
-    Copying config sha256:44a17ce607dadfb71de41d82c75d756c2bca4db677bba99969f28de726e4411e
-     862 B / 862 B [============================================================] 0s
-    Writing manifest to image destination
-    Storing signatures
-    unpacking to /home/ubuntu/tutorial/roots/_working
-    running commands...
-    generating layer...
-    filesystem first built successfully
+    # Build a static go binary
+    go build -ldflags="-extldflags=-static" -o hello_stacker.static hello_stacker.go
 
-What happened here is that stacker downloaded the `centos:latest` tag from the
-docker hub and generated it as an OCI image with tag "first". We can verify
-this:
+    cp hello_stacker.static /
+hello:
+  from:
+    type: docker
+    url: docker://zothub.io/tools/busybox:stable
+  import:
+    - stacker://build-hello-stacker/hello_stacker.static
+  run: |
+    cp /stacker/hello_stacker.static /hello_stacker
+    chmod +x /hello_stacker
+    /hello_stacker # test
+EOF
 
-    $ umoci ls --layout oci
-    centos-latest
-    first
+stacker build -f hello.stacker.yaml
+preparing image build-hello-stacker...
+copying /dev/shm/ravi/hello_stacker.go
+loading docker://zothub.io/c3/ubuntu/go-devel-amd64:1.19.2
+Copying blob b900f44d647a done
+Copying config 3ece5b544e done
+Writing manifest to image destination
+Storing signatures
++ . /etc/profile
++ export 'HOME=/go'
++ export 'GOROOT=/opt/go'
++ export 'PATH=/opt/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
++ mkdir -p /tmp/go/cache
++ export 'GOCACHE=/tmp/go/cache'
++ mkdir -p /go
++ export 'GOPATH=/go'
++ mkdir -p /go/src
++ cd /go/src
++ cp /stacker/hello_stacker.go .
++ go build '-ldflags=-extldflags=-static' -o hello_stacker.static hello_stacker.go
++ cp hello_stacker.static /
+preparing image hello...
+loading docker://zothub.io/tools/busybox:stable
+Copying blob f5b7ce95afea done
+Copying config 74c82eccc6 done
+Writing manifest to image destination
+Storing signatures
++ cp /stacker/hello_stacker.static /hello_stacker
++ chmod +x /hello_stacker
++ /hello_stacker
+Hello Stacker!
+filesystem hello built successfully
+```
 
-The centos-latest there is the OCI tag for the base image, and first is the
-image we generated.
+!!! info
 
-The next thing to note is that if we do another rebuild, less things happen:
+    `stacker://build-hello-stacker/hello_stacker.static` import statement imports
+    the specific binary file from the `build-hello-stacker` that is present in the
+    build cache
 
-    $ stacker build -f first.yaml
-    building image first...
-	importing files...
-	found cached layer first
+Lets verify that the hello layer has /hello_stacker file:
 
-Stacker will cache all of the inputs to stacker files, and only rebuild when
-one of them changes. The cache (and all of stacker's metadata) live in the `.stacker` directory where you run stacker from. Stacker's metadata can be cleaned with `stacker clean`, and its entire cache can be removed with `stacker clean`.
-
-So far, the only input is a base image, but what about if we want to import a
-script to run or a config file? Consider the next example:
-
-    first:
-        from:
-            type: docker
-            url: docker://centos:latest
-        import:
-            - config.json
-            - install.sh
-        run: |
-            mkdir -p /etc/myapp
-            cp /stacker/config.json /etc/myapp/
-            /stacker/install.sh
-
-If the content of `install.sh` is just `echo hello world`, then stacker's
-output will look something like:
-
-    $ stacker build -f first.yaml
-	building image first...
-	importing files...
-	copying config.json
-	copying install.sh
-	Getting image source signatures
-	Skipping fetch of repeat blob sha256:5e35d10a3ebadf9d6ab606ce72e1e77f8646b2e2ff8dd3a60d4401c3e3a76f31
-	Copying config sha256:44a17ce607dadfb71de41d82c75d756c2bca4db677bba99969f28de726e4411e
-	 862 B / 862 B [============================================================] 0s
-	Writing manifest to image destination
-	Storing signatures
-	unpacking to /home/ubuntu/tutorial/roots/_working
-	running commands...
-	running commands for first
-	+ mkdir -p /etc/myapp
-	+ cp /stacker/config.json /etc/myapp
-	+ /stacker/install.sh
-	hello world
-	generating layer...
-	filesystem first built successfully
-
-There are two new stacker file directives here:
-
-    import:
-        - config.json
-        - install.sh
-
-Which imports those two files into the `/stacker` directory inside the image.
-This directory will not be present during the final image, so copy any files
-you need out of it into their final place in the image. Also, importing things
-from the web (via http://example.com/foo.tar.gz urls) is supported, and these
-things will be cached on disk. Stacker will not evaluate as long as it has a
-file there, so if something at the URL changes, you need to run `stacker build`
-with the `--no-cache` argument, or simply delete the file from
-`.stacker/imports/$target_name/foo.tar.gz`.
-
-And then there is:
-
-    run: |
-        mkdir -p /etc/myapp
-        cp /stacker/config.json /etc/myapp/
-        /stacker/install.sh
-
-Which is the set of commands to run in order to install and configure the
-image.
-
-Also note that it used a cached version of the base layer, but then re-built
-the part where you asked for commands to be run, since that is new.
-
-### dev/build containers
-
-Finally, stacker offers "build only" containers, which are just built, but not
-emitted in the final OCI image. For example:
-
-    build:
-        from:
-            type: docker
-            url: docker://ubuntu:latest
-        run: |
-            apt update
-            apt install -y software-properties-common git
-            apt-add-repository -y ppa:gophers/archive
-            apt update
-            apt install -y golang-1.9
-            export PATH=$PATH:/usr/lib/go-1.9/bin
-            export GOPATH=~/go
-            mkdir -p $GOPATH/src/github.com/openSUSE
-            cd $GOPATH/src/github.com/openSUSE
-            git clone https://github.com/opencontainers/umoci
-            cd umoci
-            make umoci.static
-            cp umoci.static /
-        build_only: true
-    umoci:
-        from:
-            type: docker
-            url: docker://centos:latest
-        import: stacker://build/umoci.static
-        run: cp /stacker/umoci.static /usr/bin/umoci
-
-Will build a static version of umoci in an ubuntu container, but the final
-image will only contain an `umoci` tag with a statically linked version of
-`umoci` at `/usr/bin/umoci`. There are a few new directives to support this:
-
-    build_only: true
-
-indicates that the container shouldn't be emitted in the final image, because
-we're going to import something from it and don't need the rest of it. The
-line:
-
-    import: stacker://build/umoci.static
-
-is what actually does this import, and it says "from a previously built stacker
-image called 'build', import /umoci.static".
+```bash title="stacker chroot"
+stacker chroot -f hello.stacker.yaml hello
+This chroot is temporary, any changes will be destroyed when it exits.
+/ # ls -al /hello_stacker
+-rwxrwxr-x    1 root     root       1809694 Oct 26 01:27 /hello_stacker
+/ # exit
+```
