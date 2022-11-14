@@ -12,17 +12,15 @@ theme:
     - scheme: slate
       toggle:
         name: Light Mode
+        icon: material/toggle-switch
+      primary: black
+      accent: lime
+    - scheme: slate
+      toggle:
+        name: Dark Mode
         icon: material/toggle-switch-off-outline
       primary: black
       accent: lime
-      media: "(prefers-color-scheme: dark)"
-    - scheme: default
-      toggle:
-        name: Dark Mode
-        icon: material/toggle-switch
-      primary: black
-      accent: teal
-      media: "(prefers-color-scheme: light)"
   favicon: assets/images/favicon.png
   logo: assets/images/logo.png
   features:
@@ -118,3 +116,5 @@ nav:
     - LXC Usage: developer_guide/lxc_usage.md
     - OverlayFS Usage: developer_guide/overlayfs_usage.md
   - License: license.md
+extra_css:
+  - stylesheets/custom.css
