@@ -9,18 +9,9 @@ theme:
   name: material
   custom_dir: material
   palette:
-    - scheme: slate
-      toggle:
-        name: Light Mode
-        icon: material/toggle-switch
-      primary: black
-      accent: lime
-    - scheme: slate
-      toggle:
-        name: Dark Mode
-        icon: material/toggle-switch-off-outline
-      primary: black
-      accent: lime
+    scheme: slate
+    primary: black
+    accent: teal
   favicon: assets/images/favicon.png
   logo: assets/images/logo.png
   features:
