@@ -1,7 +1,8 @@
 .default-bg {
   background: none!important;
-  background-color:hsla(232,15%,21%,1)!important; 
+  background-color: var(--md-default-bg-color)!important; 
 }
+
 
 .content-container-centered {
   padding: 5.2rem 0;
@@ -29,7 +30,7 @@
 }
 
 .centered-content-grid ul.centered-content-grid__list > li.centered-content-grid__item  div.item_content{
-  color: hsla(232,75%,95%,1)!important;
+  color: var(--md-typeset-color)!important;
 }
 
 
