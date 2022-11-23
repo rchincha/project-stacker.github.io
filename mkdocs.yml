@@ -106,6 +106,7 @@ nav:
     - Code Structure: developer_guide/code_structure.md
     - LXC Usage: developer_guide/lxc_usage.md
     - OverlayFS Usage: developer_guide/overlayfs_usage.md
+    - Contributing: developer_guide/CONTRIBUTING.md
   - License: license.md
 extra_css:
   - stylesheets/custom.css
