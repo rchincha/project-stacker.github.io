@@ -35,16 +35,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install \
-            "pillow<10" \
-            "cairosvg>=2.5" \
-            "mkdocs-material" \
-            "mkdocs-material-extensions" \
-            "mkdocs-git-committers-plugin-2>=1.1.1" \
-            "mkdocs-git-revision-date-localized-plugin>=1.0" \
-            "mkdocs-minify-plugin>=0.3" \
-            "mkdocs-rss-plugin>=1.2" \
-            "mkdocs-redirects>=1.0"
+          pip install -r requirements.txt
 
       - name: Build Docs
         run: |
