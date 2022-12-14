@@ -50,6 +50,10 @@ extra:
       link: https://twitter.com/stackerbuild
     - icon: fontawesome/brands/slack
       link: https://cloud-native.slack.com/archives/C048S8TMBGQ
+  generator: false
+  version:
+    provider: mike
+    default: latest
 plugins:
   - search
   - minify:

@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  release:
+    types:
+      - published
 
 env:
   PYTHON_VERSION: 3.x
@@ -35,18 +38,15 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install \
-            "pillow<10" \
-            "cairosvg>=2.5" \
-            "mkdocs-material" \
-            "mkdocs-material-extensions" \
-            "mkdocs-git-committers-plugin-2>=1.1.1" \
-            "mkdocs-git-revision-date-localized-plugin>=1.0" \
-            "mkdocs-minify-plugin>=0.3" \
-            "mkdocs-rss-plugin>=1.2" \
-            "mkdocs-redirects>=1.0"
+          pip install -r requirements.txt
 
-      - name: Deploy site
+      - if: github.event_name == 'release' && github.event.action == 'published'
+        name: Deploy site
         run: |
           mkdocs --version
-          mkdocs gh-deploy --force
+          #mkdocs gh-deploy --force
+          mike --version
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          mike deploy --push --template go-import/redirect.html --update-aliases ${{ github.event.release.tag_name }} latest stacker
+          mike set-default --push latest
