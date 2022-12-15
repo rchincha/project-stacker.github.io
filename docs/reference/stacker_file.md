@@ -1,4 +1,4 @@
-## The `stacker.yaml` file
+# The `stacker.yaml` file
 
 When doing a `stacker build`, the behavior of stacker is specified by the yaml
 directives below. In addition to these, stacker allows variable substitions of

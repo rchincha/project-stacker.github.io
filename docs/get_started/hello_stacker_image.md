@@ -1,3 +1,5 @@
+# A "Hello Stacker" Image
+
 Stacker builds OCI images using the YAML definition in a file referred to as 
 the stacker file. So let's create a stacker file definition that packages a 
 simple "Hello Stacker!" script into an OCI container image.

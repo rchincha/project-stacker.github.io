@@ -1,4 +1,4 @@
-# Building container image from scratch
+# Bootsrapping From Other Images
 
 There are a couple of cases where it may be useful to build a layer from
 scratch. For example to derive a new base install of an OS or to build a

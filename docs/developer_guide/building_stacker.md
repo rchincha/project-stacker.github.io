@@ -1,4 +1,4 @@
-## Building and Installing Stacker
+# Building and Installing Stacker
 
 ### Go Dependency
 

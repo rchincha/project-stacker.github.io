@@ -1,3 +1,5 @@
+# Hermetically-sealed Build Environment
+
 Stacker builds container images in a canonically defined environment, allowing 
 stacker to guarantee repeatable builds by reproducing the same environment for 
 all the builds for a given version of the stacker file.
@@ -111,7 +113,7 @@ The `docker://zothub.io/tools/busybox:stable` container defines the above file
 system, which has all the necessary utilities like /bin/cat and a basic system
 configuration required to operate most of the Linux utilities.
 
-## Newtworking Setup
+## Networking Setup
 
 Stacker builds the container images in the host network namespace. It bind 
 mounts the host's /etc/resolv.conf into the build container's root file system 

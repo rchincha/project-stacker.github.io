@@ -56,6 +56,7 @@ extra:
     default: latest
 plugins:
   - search
+  - git-revision-date-localized
   - minify:
       minify_html: true
 markdown_extensions:
@@ -90,9 +91,13 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 nav:
   - Home: index.md
+  - What's New: whats-new.md
   - Get Started:
     - Get Stacker: get_started/get_stacker.md
     - Hello Stacker Image: get_started/hello_stacker_image.md
@@ -101,9 +106,9 @@ nav:
     - Stacker Architecture: concepts/stacker_architecture.md
   - User Guide:
     - Build Environment: user_guide/build_environment.md
-    - Build Code: user_guide/build_code.md
-    - Build Container Image: user_guide/build_container_image.md
-    - Scratch Image: user_guide/scratch_image.md
+    - Code Builds: user_guide/build_code.md
+    - Bootstrapped Container Image: user_guide/scratch_image.md
+    - Multi-Stage Build: user_guide/build_container_image.md
     - Template Substitution: user_guide/template_substitution.md
     - Annotation Support: user_guide/annotation_support.md
     - Dependency Builds: user_guide/dependency_builds.md

@@ -1,3 +1,5 @@
+# Producing Images From Compiled/Built Code
+
 A common first step before building a container image is to build your code in a
 consistent environment. Stacker provides a hermetically sealed environment in a
 build-only container to produce the binaries and other artifacts required for

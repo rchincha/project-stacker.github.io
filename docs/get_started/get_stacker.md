@@ -1,3 +1,5 @@
+# Installing Stacker
+
 Stacker is a single static binary tool with most of the dependencies built into 
 the binary. Stacker, however, depends on specific kernel capabilities and system
 tools to provide various features.
