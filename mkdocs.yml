@@ -36,6 +36,7 @@ theme:
     - search.highlight
     - search.share
     - toc.follow
+    - announce.dismiss
   icon:
     repo: fontawesome/brands/github
   font:
@@ -97,10 +98,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - What's New: whats-new.md
   - Get Started:
     - Get Stacker: get_started/get_stacker.md
     - Hello Stacker Image: get_started/hello_stacker_image.md
+  - Features: features.md
+  - What's New: whats-new.md
   - Concepts:
     - OCI Image Layout: concepts/oci_image_layout.md
     - Stacker Architecture: concepts/stacker_architecture.md
