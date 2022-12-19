@@ -5,7 +5,7 @@
 * Support for `scratch`
 
 Prior to v0.40.1, `stacker` did not support empty root filesystems to be used a
-base container image. The support has now been [added](reference/stacker_file.md#import-dest#from) which can be used to host
+base container image. The support has now been [added](reference/stacker_file.md#from) which can be used to host
 statically built binaries.
 
 * Support for `import`ing content into container image
