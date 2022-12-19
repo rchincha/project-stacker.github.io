@@ -61,6 +61,8 @@ Hub.
 `built`: `tag` is required, everything else is ignored. `built` bases this
 layer on a previously specified layer in the stacker file.
 
+`scratch`: which is an empty rootfs and can be used to host statically built binaries.
+
 ### `import`
 
 The `import` directive describes what files should be made available in
@@ -108,6 +110,17 @@ import:
   - path: "config.json
     hash: "BEEFcafeaaaaAAAA...."
   - /path/to/file
+```
+
+#### `import dest`
+
+The `import` directive also supports specifying the destination path (specified
+by `dest`) in the resulting container image, where the source file (specified
+by `path`) will be copyied to, for example:
+```
+import:
+  - path: config.json
+    dest: /
 ```
 
 ### `overlay_dirs`
