@@ -15,6 +15,22 @@ mounting a shell such as busybox and invoking appropriate commands using the
 `run` directive. Now `import` directive [allows](reference/stacker_file.md#import-dest) for the `dest` option to achieve
 the same.
 
+* For the `build` command, can specify substitute key-value pairs in a file instead of the commandline.
+
+```
+$ stacker build --help
+NAME:
+   stacker build - builds a new OCI image from a stacker yaml file
+
+USAGE:
+   stacker build [command options] [arguments...]
+
+OPTIONS:
+...
+   --substitute-file value         file containing variable substitution in stackerfiles, 'FOO: bar' yaml format
+...
+```
+
 * Some `squashfs` improvements
 
 While building squashfs layers, use `squashfuse_ll` if available which is faster.
