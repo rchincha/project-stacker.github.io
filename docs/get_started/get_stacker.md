@@ -13,8 +13,8 @@ stacker check
 ```
 ## Kernel dependencies
 
-Stacker requires overlayfs backend, and that works with any kernel >= 4.14. 
-However, for unprivileged use, the overlayfs backend requires a reasonably new 
+Stacker requires overlayfs backend. That works with any kernel >= 4.14. 
+However, for unprivileged usage, the overlayfs backend requires a new 
 kernel change available on all kernels >= 5.8. 
 
 !!! info 
@@ -27,9 +27,7 @@ kernel change available on all kernels >= 5.8.
 Some distributions may have ported these patches into older versions of their
 kernels. For example, Ubuntu 20.04 and 22.04 kernels already have these patches.
 
-Stacker has checks to ensure that it can run with all these environments
-requirements, and will fail fast if it can't do something it should be able to
-do.
+Stacker includes checks to ensure that it can run with all these requirements, and will fail if it can't perform a function it should be able perform.
 
 ```bash title="Stacker Check"
 stacker check && echo "stacker is ready to use!"
@@ -37,7 +35,7 @@ stacker check && echo "stacker is ready to use!"
 
 ## Overlay filesystem
 
-An underlying overlayfs cannot back stacker since the stacker needs to create 
+An underlying overlayfs cannot back stacker becuase the stacker needs to create 
 whiteout files, and the kernel (rightfully) forbids manual creation of whiteout 
 files on overlay filesystems. No additional userspace dependencies are required
 to use the overlayfs backend.
@@ -49,11 +47,11 @@ to use the overlayfs backend.
 
 ## Unprivileged setup
 
-Running stacker as an unprivileged user requires stacker to run inside a `user`
-namespace owned by the user that executed the command, and stacker will try to
-map `65k` user and group ids to meet the POSIX standard. So, to run stacker,
-the user's `/etc/sub{u,g}id` should be configured with enough uids to map things
-correctly. This configuration can be done automatically via 
+Running stacker as an unprivileged user requires stacker to run as part of a `user`
+namespace owned by the user that executed the command. Stacker will 
+map `65k` user and group IDs to meet the POSIX standard. So, to run stacker,
+the user's `/etc/sub{u,g}id` should be configured with enough UIDs to map components
+correctly. This configuration can be run automatically via 
 `stacker unpriv-setup`.
 
 ```bash title="Stacker unprivileged setup"
@@ -65,7 +63,7 @@ cat /etc/subuid
 ## Squashfs support
 
 In order to generate squashfs images, stacker invokes the `mksquashfs` binary.
-This binary needs to be installed and present in `$PATH`.
+This binary needs to be installed and available in `$PATH`.
 
 ```bash title="Install mksquashfs on ubuntu"
 sudo apt-get install -y squashfs-tools
