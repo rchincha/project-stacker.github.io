@@ -1,7 +1,7 @@
 # Debugging
 
 The first step to trying to find a bug in stacker is to run it with --debug.
-This will give you a stack trace from where (at least in stacker's code) the
+This gives you a stack trace from where (at least in stacker's code) the
 error originated via [github.com/pkg/errors](https://github.com/pkg/errors).
 
 Sometimes it is useful to write a small reproducer in `test/`, and run it with:
@@ -12,10 +12,10 @@ make check TEST=myreproducer.bats
 
 ## Overlayfs / layer issues
 
-Another thing `--debug` will show you is what overlay arguments it is sending
+ `--debug` also shows you the overlay arguments it is sending
 to LXC. Note that the build overlay filesystem never exists in the host mount
 namespace, but is created by liblxc in the child namespace. Sometimes it can be
-useful to take these overlay args and split up the lowerdirs:
+useful to take these overlay arguments and split up the lowerdirs:
 
 ```
 ./stacker/stacker_layers/.roots/sha256_f8e46c301da6347e78057d8fe48a6bbd8fc0cab213d47825f5c0c0646f542b6b/overlay
@@ -44,7 +44,7 @@ make LXC_CLONE_URL=https://github.com/tych0/lxc LXC_BRANCH=my-debug-branch
 Stacker links against this through a convoluted mechanism: it builds a static C
 program in `/cmd/lxc-wrapper/` that takes a few relevant arguments about what
 mode to drive liblxc in. Stacker uses the `go-embed` mechanism to embed the
-resulting statically linked binary, and then resolves and execs it at runtime
+resulting statically linked binary, and then resolves and executes it at runtime
 via the code in `/embed-exec`. The reason for all this indirection vs. linking
 against something directly is that the kernel does not allow multithreaded
 programs to unshare user namespaces. Since the go runtime spawns many threads

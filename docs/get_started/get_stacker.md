@@ -35,7 +35,7 @@ stacker check && echo "stacker is ready to use!"
 
 ## Overlay filesystem
 
-An underlying overlayfs cannot back stacker becuase the stacker needs to create 
+An underlying overlayfs cannot back stacker because the stacker needs to create 
 whiteout files, and the kernel (rightfully) forbids manual creation of whiteout 
 files on overlay filesystems. No additional userspace dependencies are required
 to use the overlayfs backend.

@@ -25,7 +25,7 @@ line flags or stacker-config file.
     STACKER_OCI_DIR     config name 'oci_dir', cli flag '--oci-dir'
 
 
-The stacker build environment will have the following environment variables
+The stacker build environment has the following environment variables
 available for reference:
 
   * `STACKER_LAYER_NAME`: the name of the layer being built.  `STACKER_LAYER_NAME`
@@ -126,7 +126,7 @@ import:
 ### `overlay_dirs`
 This directive works only with OverlayFS backend storage.
 
-The `overlay_dirs` directive describes what directories (content) from the host should be
+The `overlay_dirs` directive describes the directories (content) from the host that should be
 available in the container's filesystem. It preserves all file/dirs attributes but no
 owner or group.
 
@@ -143,7 +143,7 @@ to be available under container's /usr/local/ and all the files/dirs from the ho
 
 ### `environment`, `labels`, `working_dir`, `volumes`, `cmd`, `entrypoint`, `user`
 
-These all correspond exactly to the similarly named bits in the [OCI image
+These correspond exactly to the similarly named bits in the [OCI image
 config
 spec](https://github.com/opencontainers/image-spec/blob/master/config.md#properties),
 and are available for users to pass things through to the runtime environment

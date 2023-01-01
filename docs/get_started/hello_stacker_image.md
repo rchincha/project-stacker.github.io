@@ -1,7 +1,7 @@
 # A "Hello Stacker" Image
 
 Stacker builds OCI images using the YAML definition in a file referred to as 
-the stacker file. So let's create a stacker file definition that packages a 
+the Stacker file. Let's create a stacker file definition that packages a 
 simple "Hello Stacker!" script into an OCI container image.
 
 ```yaml title="Hello Stacker"
@@ -20,13 +20,13 @@ hello-stacker:
 `hello-stacker`, the first key in the above YAML, builds an OCI image named
 __hello-stacker__.
 
-The `from` section defines that `hello-stacker` image builds on top of an 
-existing image called `zothub.io/tools/busybox:stable`, and that the base image is of type 
+The `from` section defines that `hello-stacker` image builds on an 
+existing image called `zothub.io/tools/busybox:stable`, and the base image is of type 
 `docker` downloaded from URL `docker://zothub.io/tools/busybox:stable`.
 
-The `run` section defines a build script. This script is executed on top of the
-ubuntu image's root file system, creates a file called 
-`/hello-stacker-app/hello.sh`, and makes it executable.
+The `run` section defines a build script. This script is executed on the
+ubuntu image's root file system and creates an executable file called 
+`/hello-stacker-app/hello.sh`.
 
 `entrypoint` defines that `/hello-stacker-app/hello.sh` is executed as the `init`
 process on creating this container by a container runtime.
@@ -113,7 +113,7 @@ Image config:
 }
 ```
 
-The next thing to note is that if we rebuild the image without any modifications
+Note that if we rebuild the image without any modifications
 to the stacker file, less things happen:
 
 ```bash title="stacker caching"

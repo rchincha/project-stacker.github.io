@@ -18,10 +18,10 @@ On Fedora 31 you can install Go with the following command:
 #### Other Distributions
 
 If Go is not already packaged for your Linux distribution, you can get the
-latest Go version here:
+latest Go version at:
 https://golang.org/dl/#stable
 
-Go can be installed using the instructions on on the official Go website:
+Go can be installed using the instructions on the official Go website at:
 https://golang.org/doc/install#install
 
 ### Other Dependencies
@@ -50,7 +50,7 @@ packages:
 
 Contrary to what the documentation in squashfs implies, squashtool and
 libsquash from squash-tools-ng need to be installed globally, as user specific
-path overrides aren't propagated into `make check`'s test envs.
+path overrides are not propagated to `make check`'s test envs.
 
 Thus, when you reach the step **install into mylocal="$HOME/lib"** from the squashfs guide, use the config below. You can put them at the end of your .bashrc file so you don't need to run them every time.
 
@@ -58,11 +58,11 @@ Thus, when you reach the step **install into mylocal="$HOME/lib"** from the squa
     export LD_LIBRARY_PATH=$mylocal/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
     export PKG_CONFIG_PATH=$mylocal/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
 
-Since the path **/usr/local** is owned by root, when you reach the step to run **make install**, you need to run it as **sudo**.
+Because the path **/usr/local** is owned by root, when you reach the step to run **make install**, you need to run it as **sudo**.
 
 `make check`  requires the **golangci-lint** binary to be present in $GOPATH/bin
 
-Since there are some tests that run with elevated privileges and use git, it will complain that the stacker folder is unsafe as it is owned by your user. To prevent that, we need to tell git to consider that folder as safe. To do this, open your git config file (**.gitconfig**) and add the following line with the path to your local stacker folder. Below is an example:
+Because there are a few tests that run with elevated privileges and use git, it will complain that the stacker folder is unsafe as it is owned by your user. To prevent that, we need to tell git to consider that folder as safe. To do this, open your git config file (**.gitconfig**) and add the following line with the path to your local stacker folder. Below is an example:
 
     [safe]
         directory = /home/chofnar/github/stacker

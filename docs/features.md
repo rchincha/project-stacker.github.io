@@ -4,7 +4,7 @@ The key features of `stacker` are:
 
 ## Single Binary
 
-One statically built binary for simplified download and install with no
+One statically built binary for simplified download and installation with no
 additional dependencies or services.
 
 ## Unprivileged

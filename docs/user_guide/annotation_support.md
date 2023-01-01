@@ -1,6 +1,6 @@
 # Additing Annotations 
 
-In the stacker yaml file, `annotations` is a user-specified key value map that will be included in the
+In the stacker yaml file, `annotations` is a user-specified key value map that is included in the
 final OCI image. Note that these annotations are included in the image manifest
 itself and not as part of the index.json.
 
