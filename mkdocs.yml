@@ -4,7 +4,7 @@ site_description: Stacker Build
 repo_url: https://github.com/project-stacker/stacker
 repo_name: project-stacker/stacker
 edit_uri: ""
-copyright: Copyright &copy; 2017 - 2022 Cisco Systems Inc., All Rights Reserved.
+copyright: Copyright &copy; 2017 - 2023 Cisco Systems Inc., All Rights Reserved.
 theme:
   name: material
   custom_dir: material
@@ -101,9 +101,11 @@ nav:
   - Get Started:
     - Get Stacker: get_started/get_stacker.md
     - Hello Stacker Image: get_started/hello_stacker_image.md
+    - Stacker Tutorial: get_started/tutorial.md
   - Features: features.md
   - What's New: whats-new.md
   - Concepts:
+    - About: concepts/about.md
     - OCI Image Layout: concepts/oci_image_layout.md
     - Stacker Architecture: concepts/stacker_architecture.md
   - User Guide:

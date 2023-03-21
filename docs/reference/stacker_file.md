@@ -246,3 +246,11 @@ While `config` section supports a similar `labels`, it is more pertitent to the
 image runtime. On the other hand, `annotations` is intended to be
 image-specific metadata aligned with the
 [annotations in the image spec](https://github.com/opencontainers/image-spec/blob/main/annotations.md).
+
+### os
+
+The `os` key value is a user-specified string indicating which _operating system_ this image is being built for. Examples include `linux` and `darwin`. This directive is optional and defaults to the host operating system if not specified.
+
+### arch
+
+The `arch` key value is a user-specified string indicating which machine _architecture_ this image is being built for. Examples include `amd64` and `arm64`. This directive is optional and defaults to the host machine architecture if not specified.
