@@ -25,7 +25,7 @@ The best way to accomplish this is as follows:
             type: tar
             url: stacker://build/contents.tar
 
-Or e.g. to bootstrap a base layer for CentoOS 7:
+Or e.g. to bootstrap a base layer for CentOS 7:
 
     build:
         from:

@@ -1,8 +1,6 @@
 # Publishing images
 
-After building the image, you can publish the image to an [OCI Distribution
-Spec](https://github.com/opencontainers/distribution-spec/blob/main/spec.md)
-conformant registry.
+After building the image, you can publish the image to an [OCI Distribution Spec](https://github.com/opencontainers/distribution-spec/blob/main/spec.md) conformant registry.
 
 ```
 NAME:
@@ -24,4 +22,5 @@ OPTIONS:
    --show-only                             show the images to be published without actually publishing them
    --force                                 force publishing the images present in the OCI layout even if they should be rebuilt
    --layer-type value                      set the output layer type (supported values: tar, squashfs); can be supplied multiple times (default: "tar")
+   --layer value                           layer to be published; can be specified multiple times
 ```

@@ -8,7 +8,7 @@ itself and not as part of the index.json.
       a.b.c.key: abc_val
       p.q.r.key: pqr_val
 
-While `config` section supports a similar `labels`, it is more pertitent to the
+While the `config` section supports a similar `labels`, it is more pertinent to the
 image runtime. On the other hand, `annotations` is intended to be
 image-specific metadata aligned with the
 [annotations in the image spec](https://github.com/opencontainers/image-spec/blob/main/annotations.md).

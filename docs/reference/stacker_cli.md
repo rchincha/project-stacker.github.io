@@ -1,18 +1,21 @@
 # Stacker Command-Line Interface Reference
 
+This document lists the command line interface (CLI) commands for stacker version 1.0.0.
+
 <table>
 <tr><td><a href="#stacker">stacker</a></td><td>Stacker builds OCI images</td></tr>
-<tr><td><a href="#stacker-build">stacker build</a></td><td>Build a new OCI image from a stacker yaml file</td></tr>
-<tr><td><a href="#stacker-recursive-build">stacker recursive-build</a></td><td>Find stacker yaml files under a directory and builds all OCI layers they define</td></tr>
-<tr><td><a href="#stacker-publish">stacker publish</a></td><td>Publish OCI images previously built from one or more stacker yaml files</td></tr>
-<tr><td><a href="#stacker-chroot-exec">stacker chroot</a></td><td>Run a command in a chroot (same as <code>stacker exec</code>)</td></tr>
-<tr><td><a href="#stacker-clean">stacker clean</a></td><td>Clean up after a stacker build</td></tr>
-<tr><td><a href="#stacker-inspect">stacker inspect</a></td><td>Print the json representation of an OCI image</td></tr>
-<tr><td><a href="#stacker-grab">stacker grab</a></td><td>Grab a file from the layer's filesystem</td></tr>
-<tr><td><a href="#stacker-unpriv-setup">stacker unpriv-setup</a></td><td>Do the necessary unprivileged setup for stacker build to work without root</td></tr>
+<tr><td><a href="#stacker-build">stacker build</a></td><td>Builds a new OCI image from a stacker yaml file</td></tr>
+<tr><td><a href="#stacker-recursive-build">stacker recursive-build</a></td><td>Finds stacker yaml files under a directory and builds all OCI images they define</td></tr>
+<tr><td><a href="#stacker-convert">stacker convert</a></td><td>Converts a Dockerfile into a stacker yaml file</td></tr>
+<tr><td><a href="#stacker-publish">stacker publish</a></td><td>Publishes OCI images previously built from one or more stacker yaml files</td></tr>
+<tr><td><a href="#stacker-chroot-exec">stacker chroot</a></td><td>Runs a command in a chroot (same as <code>stacker exec</code>)</td></tr>
+<tr><td><a href="#stacker-clean">stacker clean</a></td><td>Cleans up after a stacker build</td></tr>
+<tr><td><a href="#stacker-inspect">stacker inspect</a></td><td>Prints the json representation of an OCI image</td></tr>
+<tr><td><a href="#stacker-grab">stacker grab</a></td><td>Grabs a file from the image's filesystem</td></tr>
+<tr><td><a href="#stacker-unpriv-setup">stacker unpriv-setup</a></td><td>Does the necessary unprivileged setup for stacker build to work without root</td></tr>
 <tr><td><a href="#stacker-gc">stacker gc</a></td><td>Garbage collection of unused OCI imports/outputs snapshots</td></tr>
-<tr><td><a href="#stacker-check">stacker check</a></td><td>Check that all runtime required items (like kernel features) are present</td></tr>
-<tr><td><a href="#stacker-help">stacker help</a></td><td>Show a list of commands or help for one command</td></tr>
+<tr><td><a href="#stacker-check">stacker check</a></td><td>Checks that all runtime required items (like kernel features) are present</td></tr>
+<tr><td><a href="#stacker-help">stacker help</a></td><td>Shows a list of commands or help for one command</td></tr>
 </table>
 
 <a name="stacker"></a>
@@ -26,11 +29,12 @@
         stacker [global options] command [command options] [arguments...]
 
         VERSION:
-        stacker v0.40.1-e54a685 liblxc a330126b45c7c3b6fcf0f9ba6c1eda7bdb4e508a
+        stacker <version> liblxc <digest>
 
         COMMANDS:
         build            builds a new OCI image from a stacker yaml file
         recursive-build  finds stacker yaml files under a directory and builds all OCI layers they define
+        convert          converts a Dockerfile into a stacker yaml file (experimental, best-effort)
         publish          publishes OCI images previously built from one or more stacker yaml files
         chroot, exec     run a command in a chroot
         clean            cleans up after a `stacker build`
@@ -42,10 +46,11 @@
         help, h          Shows a list of commands or help for one command
 
         GLOBAL OPTIONS:
+        --work-dir value      set the working directory for stacker's cache, OCI output and rootfs output
         --stacker-dir value   set the directory for stacker's cache (default: ".stacker")
         --oci-dir value       set the directory for OCI output (default: "oci")
         --roots-dir value     set the directory for the rootfs output (default: "roots")
-        --config value        stacker config file with defaults (default: "/users/mishield/.config/stacker/conf.yaml")
+        --config value        stacker config file with defaults (default: "/home/<username>/.config/stacker/conf.yaml")
         --debug               enable stacker debug mode
         -q, --quiet           silence all logs
         --log-file value      log to a file instead of stderr
@@ -102,6 +107,21 @@
         --stacker-file-pattern value, -p value  regex pattern to use when searching for stackerfile paths (default: "\\/stacker.yaml$")
         --search-dir value, -d value            directory under which to search for stackerfiles to build (default: ".")
 
+<a name="stacker-convert"></a>
+
+## stacker convert
+
+        NAME:
+        stacker convert - converts a Dockerfile into a stacker yaml file (experimental, best-effort)
+
+        USAGE:
+        stacker convert [command options] [arguments...]
+
+        OPTIONS:
+        --docker-file value, -i value      the input Dockerfile (default: "Dockerfile")
+        --output-file value, -o value      the output stacker file (default: "stacker.yaml")
+        --substitute-file value, -s value  the output file containing detected substitutions (default: "stacker-subs.yaml")
+
 <a name="stacker-publish"></a>
 
 ## stacker publish
@@ -115,6 +135,7 @@
         OPTIONS:
         --stacker-file value, -f value          the input stackerfile (default: "stacker.yaml")
         --stacker-file-pattern value, -p value  regex pattern to use when searching for stackerfile paths (default: "\\/stacker.yaml$")
+        --substitute-file value                 file containing variable substitution in stackerfiles, 'FOO: bar' yaml format
         --search-dir value, -d value            directory under which to search for stackerfiles to publish
         --url value                             url where to publish the OCI images
         --username value                        username for the registry where the OCI images are published
@@ -125,6 +146,7 @@
         --show-only                             show the images to be published without actually publishing them
         --force                                 force publishing the images present in the OCI layout even if they should be rebuilt
         --layer-type value                      set the output layer type (supported values: tar, squashfs); can be supplied multiple times (default: "tar")
+        --image value                           image to be published; can be specified multiple times
 
 <a name="stacker-chroot-exec"></a>
 
@@ -157,7 +179,7 @@
         stacker clean [command options] [arguments...]
 
         OPTIONS:
-        --all  no-op; this used to do soemthing, and is left in for compatibility
+        --all  no-op; this used to do something, and is left in for compatibility
 
 <a name="stacker-inspect"></a>
 
